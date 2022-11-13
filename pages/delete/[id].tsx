@@ -12,7 +12,7 @@ const Delete = () => {
                 <title>Удаление автомобиля</title>
             </Head>
             <div className={cls.wrapper}>
-                <DeleteForm carId={String(id)} />
+                <DeleteForm carId={String(id)}/>
             </div>
         </>
     );

@@ -3,23 +3,27 @@ import {ReactElement} from 'react';
 import cls from './DeleteForm.module.scss';
 import {Button} from 'react-bootstrap';
 import {useRouter} from 'next/router';
-import axios from 'axios';
+import {useAppDispatch} from '../../hooks';
+import {deleteCar} from '../../store/middlewares';
 
 interface DeleteFormProps {
     carId: string;
 }
 
 export const DeleteForm = ({carId}: DeleteFormProps): ReactElement => {
-
+    const dispatch = useAppDispatch();
     const router = useRouter();
 
     const onBack = () => {
         router.push('/view');
     }
 
-    const onDelete = async() => {
-        const result = await axios.delete(`http://localhost:3001/cars/${carId}`);
-        router.push('/view');
+    const onDelete = async () => {
+        const {meta} = await dispatch(deleteCar(carId));
+
+        if (meta.requestStatus === 'fulfilled') {
+            router.push('/view');
+        }
     }
 
     return (

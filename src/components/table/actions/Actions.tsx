@@ -8,7 +8,7 @@ import deleteIcon from '../../../assets/img/remove.svg'
 import editIcon from '../../../assets/img/edit.svg';
 
 interface ActionsProps {
-    carId: number;
+    carId: string;
 }
 
 export const Actions = ({carId}: ActionsProps): ReactElement => {

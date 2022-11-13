@@ -1,0 +1,1 @@
+export {deleteCar} from './deleteCar/deleteCar';

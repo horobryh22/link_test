@@ -1,19 +1,19 @@
-interface CarCharacteristics {
-    'car_id': number,
-    'brand': string,
-    'model': string,
-    'productionYear': number,
-    'body': string,
-    'mileage': number
+export interface CarCharacteristics {
+    car_id: string,
+    brand: string,
+    model: string,
+    productionYear: string,
+    body: string,
+    mileage: string
 }
 
 export interface Car {
-    'id': number,
-    'images': string[],
-    'name': string,
-    'description': string,
-    'price': number,
-    'contacts': string,
-    'technical_characteristics': CarCharacteristics,
-    'options': Record<string, string>[]
+    id: string,
+    images: string,
+    name: string,
+    description: string,
+    price: string,
+    contacts: string,
+    technical_characteristics?: CarCharacteristics,
+    options?: Record<string, string>[]
 }

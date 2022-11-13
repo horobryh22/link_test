@@ -3,6 +3,7 @@ import {GetServerSideProps, NextPage} from 'next';
 import {Car} from '../src/types';
 import {AppLink, Table} from '../src/components';
 import cls from 'styles/View.module.scss';
+import {instance} from '../src/api';
 
 interface ViewProps {
     cars: Car[]
@@ -16,7 +17,7 @@ const View: NextPage<ViewProps> = ({cars}) => {
             </Head>
             <AppLink
                 className={cls.btn}
-                href={'/update'}
+                href={'/create'}
             >
                 Добавить автомобиль
             </AppLink>
@@ -26,8 +27,7 @@ const View: NextPage<ViewProps> = ({cars}) => {
 }
 
 export const getServerSideProps: GetServerSideProps<ViewProps> = async () => {
-    const response = await fetch('http://localhost:3001/cars');
-    const data = await response.json();
+    const {data} = await instance.get('');
 
     if (!data) {
         return {
