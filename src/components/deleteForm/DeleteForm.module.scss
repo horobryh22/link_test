@@ -1,0 +1,21 @@
+.form {
+  padding: 20px;
+  width: 400px;
+  height: 200px;
+  border: 1px solid;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .title {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .btnGroup {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

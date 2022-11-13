@@ -1,0 +1,85 @@
+{
+  "cars": [
+    {
+      "id": 136,
+      "images": [],
+      "name": "Volvo XC70, 2007",
+      "description": "1973 года выпуска, в отличном состоянии. Пробег 200000 км.",
+      "price": 1500000,
+      "contacts": "seller@mail.ru",
+      "technical_characteristics": {
+        "car_id": 45,
+        "brand": "Volvo",
+        "model": "XC70",
+        "productionYear": 2007,
+        "body": "body",
+        "mileage": 200000
+      },
+      "options": [
+        {
+          "option_name": "Климат-контроль"
+        },
+        {
+          "option_name": "Кожаный руль"
+        },
+        {
+          "option_name": "Центральный замок"
+        }
+      ]
+    },
+    {
+      "id": 137,
+      "images": [],
+      "name": "Volvo XC70, 2007",
+      "description": "1973 года выпуска, в отличном состоянии. Пробег 200000 км.",
+      "price": 1500000,
+      "contacts": "seller@mail.ru",
+      "technical_characteristics": {
+        "car_id": 45,
+        "brand": "Volvo",
+        "model": "XC70",
+        "productionYear": 2007,
+        "body": "body",
+        "mileage": 200000
+      },
+      "options": [
+        {
+          "option_name": "Климат-контроль"
+        },
+        {
+          "option_name": "Кожаный руль"
+        },
+        {
+          "option_name": "Центральный замок"
+        }
+      ]
+    },
+    {
+      "id": 138,
+      "images": [],
+      "name": "Volvo XC70, 2007",
+      "description": "1973 года выпуска, в отличном состоянии. Пробег 200000 км.",
+      "price": 1500000,
+      "contacts": "seller@mail.ru",
+      "technical_characteristics": {
+        "car_id": 45,
+        "brand": "Volvo",
+        "model": "XC70",
+        "productionYear": 2007,
+        "body": "body",
+        "mileage": 200000
+      },
+      "options": [
+        {
+          "option_name": "Климат-контроль"
+        },
+        {
+          "option_name": "Кожаный руль"
+        },
+        {
+          "option_name": "Центральный замок"
+        }
+      ]
+    }
+  ]
+}
