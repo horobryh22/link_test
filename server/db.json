@@ -61,21 +61,63 @@
       ]
     },
     {
-      "id": "4249f31a-da24-4826-ac06-6a0a3c49f54e",
-      "name": "zxczxc",
-      "images": "zxczxc",
-      "contacts": "zxczxc",
-      "description": "zxczxc",
-      "price": "zxczxc",
+      "id": "72a62492-bb15-46d5-bd57-c314dd992ad9",
+      "name": "Текст",
+      "images": "Текст",
+      "contacts": "Текст",
+      "description": "Текст",
+      "price": "Текст",
       "technical_characteristics": {
-        "mileage": "zxczxczxc",
-        "brand": "zxczxczx",
-        "body": "zxczxc",
-        "productionYear": "zxczxc",
-        "model": "zxczxc",
-        "car_id": "280969cb-9ca4-49a1-ad30-30741c8c39f7"
+        "mileage": "10 000",
+        "brand": "Bmw",
+        "body": "x5",
+        "productionYear": "2020",
+        "model": "x5",
+        "car_id": "33df6de9-005e-4bb0-8f7e-f91cc63ad911"
       },
       "options": []
+    },
+    {
+      "id": "de0ff873-bcec-4540-a6c1-fdbdd207842c",
+      "name": "Текст",
+      "images": "Текст",
+      "contacts": "Текст",
+      "description": "Текст",
+      "price": "Текст",
+      "technical_characteristics": {
+        "mileage": "100 000",
+        "brand": "Audi",
+        "body": "A4",
+        "productionYear": "2007",
+        "model": "A4",
+        "car_id": "89dfb6b6-c2c1-4f10-9a9a-cbbc525eca8a"
+      },
+      "options": [
+        {
+          "f87aac3a-db45-4d4a-8f5a-9057a59c5304": "Акустика"
+        }
+      ]
+    },
+    {
+      "id": "6bfda650-c04d-4a8a-998c-ce424ac74b88",
+      "name": "Текст",
+      "images": "Текст",
+      "contacts": "Текст",
+      "description": "Текст",
+      "price": "Текст",
+      "technical_characteristics": {
+        "mileage": "200 000",
+        "brand": "Volvo",
+        "body": "XC70",
+        "productionYear": "2010",
+        "model": "XC70",
+        "car_id": "ce246fb9-d825-416d-82b1-6e7a72b3624f"
+      },
+      "options": [
+        {
+          "79dc9eb1-fbec-493c-90f0-b7f2557e0037": "Тонировка"
+        }
+      ]
     }
   ],
   "brands": [
@@ -83,20 +125,27 @@
     "volvo",
     "audi",
     "lada",
-    "toyota"
+    "toyota",
+    "mercedes"
   ],
   "models": [
     "b80",
     "a340",
     "b50",
     "s40",
-    "v30"
+    "v30",
+    "XC70",
+    "x5",
+    "A4"
   ],
   "productionYears": [
     "1980",
     "2012",
     "1999",
     "2001",
-    "2006"
+    "2006",
+    "2010",
+    "2020",
+    "2007"
   ]
 }

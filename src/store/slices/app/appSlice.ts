@@ -1,14 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 import { Car } from '../../../types';
 import { createCar, deleteCar, updateCar } from '../../middlewares';
-import { AppStateSchema } from '../../types/app/AppStateSchema';
+import { AppStateSchema, SearchValues } from '../../types/app/AppStateSchema';
 
 const initialState: AppStateSchema = {
     data: undefined,
     error: undefined,
     isLoading: false,
+    searchValues: {
+        brand: 'audi',
+        model: 'b80',
+        year: '1980',
+    },
 };
 
 export const appSlice = createSlice({
@@ -20,6 +25,12 @@ export const appSlice = createSlice({
         },
         setData: (state, action: PayloadAction<Car[]>) => {
             state.data = action.payload;
+        },
+        changeSearchValues: (state, action: PayloadAction<SearchValues>) => {
+            state.searchValues = {
+                ...state.searchValues,
+                ...action.payload,
+            };
         },
     },
     extraReducers: builder =>
