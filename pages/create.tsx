@@ -1,22 +1,24 @@
-import cls from 'styles/Create.module.scss';
+import { NextPage } from 'next';
 import Head from 'next/head';
-import {MainForm} from '../src/components';
-import {createCar} from '../src/store/middlewares';
-import {Car} from '../src/types';
-import {useAppDispatch} from '../src/hooks';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 
-const Create = () => {
+import { MainForm } from '../src/components';
+import { useAppDispatch } from '../src/hooks';
+import { createCar } from '../src/store/middlewares';
+import { Car } from '../src/types';
+import cls from '../styles/Create.module.scss';
+
+const Create: NextPage = () => {
     const dispatch = useAppDispatch();
     const router = useRouter();
 
     const onCreate = async (car: Car) => {
-        const {meta} = await dispatch(createCar(car));
+        const { meta } = await dispatch(createCar(car));
 
         if (meta.requestStatus === 'fulfilled') {
             router.push('/view');
         }
-    }
+    };
 
     return (
         <>
@@ -24,10 +26,10 @@ const Create = () => {
                 <title>Добавить автомобиль</title>
             </Head>
             <div className={cls.wrapper}>
-                <MainForm action={onCreate}/>
+                <MainForm action={onCreate} />
             </div>
         </>
     );
-}
+};
 
 export default Create;

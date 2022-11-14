@@ -1,11 +1,15 @@
 .wrapper {
     padding: 20px;
-
     display: flex;
     flex-direction: column;
 
-    .btn {
-        width: 300px;
+    .btnBlock {
+        display: flex;
+        justify-content: space-between;
         margin-bottom: 30px;
+
+        .btn {
+            width: 300px;
+        }
     }
 }

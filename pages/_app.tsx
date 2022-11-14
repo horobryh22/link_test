@@ -1,17 +1,20 @@
-import 'styles/globals.scss';
+import '../styles/globals.scss';
 import type { AppProps } from 'next/app';
 import SSRProvider from 'react-bootstrap/SSRProvider';
-import {Provider} from 'react-redux';
-import {store} from '../src/store/store';
-import {Error} from '../src/components';
+import { Provider } from 'react-redux';
 
-export default function App({ Component, pageProps }: AppProps) {
+import { Error } from '../src/components';
+import { store } from '../src/store/store';
+
+const App = ({ Component, pageProps }: AppProps) => {
     return (
         <Provider store={store}>
             <SSRProvider>
                 <Component {...pageProps} />
-                <Error/>
+                <Error />
             </SSRProvider>
         </Provider>
     );
-}
+};
+
+export default App;

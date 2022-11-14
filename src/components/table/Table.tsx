@@ -1,14 +1,16 @@
-import {ReactElement, useMemo} from 'react';
-import {Table} from 'react-bootstrap';
-import {Car} from '../../types';
-import {Actions} from './actions/Actions';
+import { ReactElement, useMemo } from 'react';
+
+import { Table } from 'react-bootstrap';
+
+import { Car } from '../../types';
+
+import { Actions } from './actions/Actions';
 
 interface TableProps {
-    cars: Car[]
+    cars: Car[];
 }
 
-export const TableComponent = ({cars}: TableProps): ReactElement => {
-
+export const TableComponent = ({ cars }: TableProps): ReactElement => {
     const mappedCars = useMemo(() => {
         return cars?.map(car => (
             <tr key={car.id}>
@@ -16,25 +18,25 @@ export const TableComponent = ({cars}: TableProps): ReactElement => {
                 <td>{car.technical_characteristics?.model}</td>
                 <td>{car.technical_characteristics?.productionYear}</td>
                 <td>{car.technical_characteristics?.mileage}</td>
-                <td><Actions carId={car.id}/></td>
+                <td>
+                    <Actions carId={car.id} />
+                </td>
             </tr>
-        ))
-    }, [cars])
+        ));
+    }, [cars]);
 
     return (
-        <Table style={{textAlign: 'center'}} striped bordered hover>
-            <thead >
-            <tr>
-                <th>Марка</th>
-                <th>Модель</th>
-                <th>Год выпуска</th>
-                <th>Пробег</th>
-                <th>Действия</th>
-            </tr>
+        <Table style={{ textAlign: 'center' }} striped bordered hover>
+            <thead>
+                <tr>
+                    <th>Марка</th>
+                    <th>Модель</th>
+                    <th>Год выпуска</th>
+                    <th>Пробег</th>
+                    <th>Действия</th>
+                </tr>
             </thead>
-            <tbody>
-            {mappedCars}
-            </tbody>
+            <tbody>{mappedCars}</tbody>
         </Table>
     );
 };

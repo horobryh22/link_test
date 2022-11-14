@@ -1,18 +1,18 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {instance} from '../../../api';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const deleteCar = createAsyncThunk<void,
-    string,
-    { rejectValue: string }>
-('app/deleteCar', async (carId, {rejectWithValue}) => {
-    try {
-        const {data} = await instance.delete(`/${carId}`);
+import { instance } from '../../../api';
 
-        if (!data) {
-            throw new Error('Произошла ошибка, данные не были удалены');
+export const deleteCar = createAsyncThunk<void, string, { rejectValue: string }>(
+    'app/deleteCar',
+    async (carId, { rejectWithValue }) => {
+        try {
+            const { data } = await instance.delete(`/cars/${carId}`);
+
+            if (!data) {
+                throw new Error('Произошла ошибка, данные не были удалены');
+            }
+        } catch (e) {
+            return rejectWithValue('Произошла ошибка, попробуйте обновить страницу');
         }
-
-    } catch (e) {
-        return rejectWithValue('Произошла ошибка, попробуйте обновить страницу');
-    }
-});
+    },
+);

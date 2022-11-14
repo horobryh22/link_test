@@ -1,7 +1,7 @@
-import {Car} from '../../../types';
+import { Car } from '../../../types';
 
 export interface AppStateSchema {
-    data?: Car[],
-    error?: string,
-    isLoading: boolean,
+    data?: Car[];
+    error?: string;
+    isLoading: boolean;
 }

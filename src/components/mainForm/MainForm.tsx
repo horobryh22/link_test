@@ -1,14 +1,16 @@
-import {ReactElement, useState} from 'react';
+import { ReactElement, useState } from 'react';
 
-import {v4} from 'uuid';
+import { useRouter } from 'next/router';
+import { Button, Form } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
+import { v4 } from 'uuid';
+
+import { Car, FormElement, FormValues } from '../../types';
+
 import cls from './MainForm.module.scss';
-import {Button, Form} from 'react-bootstrap';
-import {Car, FormElement, FormValues} from '../../types';
-import {useForm} from 'react-hook-form';
-import {useRouter} from 'next/router';
-import {MainPart} from './mainPart/MainPart';
-import {TechnicalPart} from './technicalPart/TechnicalPart';
-import {OptionalPart} from './optionalPart/OptionalPart';
+import { MainPart } from './mainPart/MainPart';
+import { OptionalPart } from './optionalPart/OptionalPart';
+import { TechnicalPart } from './technicalPart/TechnicalPart';
 
 interface MainFormProps {
     car?: Car;
@@ -16,7 +18,11 @@ interface MainFormProps {
     action: (car: Car) => void;
 }
 
-export const MainForm = ({car, isUpdate = false, action}: MainFormProps): ReactElement => {
+export const MainForm = ({
+    car,
+    isUpdate = false,
+    action,
+}: MainFormProps): ReactElement => {
     const router = useRouter();
 
     const {
@@ -27,23 +33,30 @@ export const MainForm = ({car, isUpdate = false, action}: MainFormProps): ReactE
         price,
         images,
         technical_characteristics,
-        options: existOptions
-    } = car || {} as Car;
+        options: existOptions,
+    } = car || ({} as Car);
 
-    const mappedExistOptions = existOptions?.map((option) => {
+    const mappedExistOptions = existOptions?.map(option => {
         const key = Object.keys(option).reduce(key => key);
+
         return {
             id: key,
             label: 'Новая опция',
             placeholder: 'Введите название опции',
-            defaultValue: option[key]
-        }
+            defaultValue: option[key],
+        };
     });
     const isFieldExtended = Boolean(technical_characteristics);
     const [extendedFields, setExtendedFields] = useState(isFieldExtended);
-    const [options, setOptions] = useState<Omit<FormElement, 'name'>[]>(mappedExistOptions || []);
+    const [options, setOptions] = useState<Omit<FormElement, 'name'>[]>(
+        mappedExistOptions || [],
+    );
 
-    const {control, handleSubmit, formState: {errors}} = useForm<FormValues>({
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<FormValues>({
         defaultValues: {
             name: name || '',
             description: description || '',
@@ -55,11 +68,10 @@ export const MainForm = ({car, isUpdate = false, action}: MainFormProps): ReactE
             productionYear: technical_characteristics?.productionYear || '',
             body: technical_characteristics?.body || '',
             mileage: technical_characteristics?.mileage || '',
-        }
+        },
     });
 
     const onSubmit = async (data: FormValues) => {
-
         const {
             images,
             brand,
@@ -76,24 +88,26 @@ export const MainForm = ({car, isUpdate = false, action}: MainFormProps): ReactE
 
         const car: Car = {
             id: isUpdate ? id : v4(),
-            name: data.name,
-            images: data.images,
-            contacts: data.contacts,
-            description: data.description,
-            price: data.price,
-            technical_characteristics: extendedFields ? {
-                mileage: data.mileage,
-                brand: data.brand,
-                body: data.body,
-                productionYear: data.productionYear,
-                model: data.model,
-                car_id: v4()
-            } : undefined,
-            options: Object.entries(restOptions).map(([el1, el2]) => ({[el1]: el2}))
+            name,
+            images,
+            contacts,
+            description,
+            price,
+            technical_characteristics: extendedFields
+                ? {
+                      mileage,
+                      brand,
+                      body,
+                      productionYear,
+                      model,
+                      car_id: v4(),
+                  }
+                : undefined,
+            options: Object.entries(restOptions).map(([el1, el2]) => ({ [el1]: el2 })),
         };
 
         action(car);
-    }
+    };
 
     const onExtend = () => {
         setExtendedFields(prev => !prev);
@@ -103,10 +117,11 @@ export const MainForm = ({car, isUpdate = false, action}: MainFormProps): ReactE
         const option: Omit<FormElement, 'name'> = {
             id: v4(),
             label: 'Новая опция',
-            placeholder: 'Введите название опции'
-        }
-        setOptions([...options, option])
-    }
+            placeholder: 'Введите название опции',
+        };
+
+        setOptions([...options, option]);
+    };
 
     const onBack = () => {
         router.push('/view');
@@ -121,37 +136,22 @@ export const MainForm = ({car, isUpdate = false, action}: MainFormProps): ReactE
                     extendedFields={extendedFields}
                     onExtend={onExtend}
                 />
-                {
-                    extendedFields
-                        ? <TechnicalPart
-                            errors={errors}
-                            control={control}
-                            onAddOption={onAddOption}
-                        />
-                        : null
-                }
-                {
-                    options.length
-                        ? <OptionalPart
-                            options={options}
-                            control={control}
-                            errors={errors}
-                        />
-                        : null
-                }
+                {extendedFields ? (
+                    <TechnicalPart
+                        errors={errors}
+                        control={control}
+                        onAddOption={onAddOption}
+                    />
+                ) : null}
+                {options.length ? (
+                    <OptionalPart options={options} control={control} errors={errors} />
+                ) : null}
             </div>
             <div className={cls.btnBlock}>
-                <Button
-                    type="submit"
-                    className={cls.btn}
-                    variant="primary"
-                >
+                <Button type="submit" className={cls.btn} variant="primary">
                     {isUpdate ? 'Обновить' : 'Добавить'}
                 </Button>
-                <Button
-                    variant="danger"
-                    onClick={onBack}
-                >
+                <Button variant="danger" onClick={onBack}>
                     Вернуться назад
                 </Button>
             </div>

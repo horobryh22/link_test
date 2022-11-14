@@ -1,3 +1,3 @@
-import {RootState} from '../../../store';
+import { RootState } from '../../../store';
 
 export const selectError = (state: RootState) => state.app.error;

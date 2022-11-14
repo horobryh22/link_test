@@ -1,7 +1,8 @@
-import {ReactElement, ReactNode} from 'react';
+import { ReactElement, ReactNode } from 'react';
+
+import Link from 'next/link';
 
 import cls from './AppLink.module.scss';
-import Link from 'next/link';
 
 interface AppLinkProps {
     className?: string;
@@ -9,8 +10,10 @@ interface AppLinkProps {
     children: ReactNode;
 }
 
-export const AppLink = ({href, children, className}: AppLinkProps): ReactElement => {
-
-    return <Link href={href} className={`${cls.appLink} ${className}`}>{children}</Link>;
-
+export const AppLink = ({ href, children, className }: AppLinkProps): ReactElement => {
+    return (
+        <Link href={href} className={`${cls.appLink} ${className}`}>
+            {children}
+        </Link>
+    );
 };

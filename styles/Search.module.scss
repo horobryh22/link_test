@@ -1,0 +1,16 @@
+.wrapper {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+
+  .topBlock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
+  }
+
+  .selectBlock {
+    display: flex;
+  }
+}

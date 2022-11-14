@@ -1,28 +1,26 @@
-import cls from 'styles/Update.module.scss';
 import Head from 'next/head';
-import {GetServerSideProps} from 'next';
-import {instance} from '../../src/api';
-import {Car} from '../../src/types';
-import {MainForm} from '../../src/components';
-import {useAppDispatch} from '../../src/hooks';
-import {updateCar} from '../../src/store/middlewares';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 
-export interface UpdateProps {
-    car: Car
-}
+import { MainForm } from '../../src/components';
+import { useAppDispatch, useTypedSelector } from '../../src/hooks';
+import { updateCar } from '../../src/store/middlewares';
+import { selectCarById } from '../../src/store/selectors';
+import { Car } from '../../src/types';
+import cls from '../../styles/Update.module.scss';
 
-const Update = ({car}:UpdateProps) => {
+const Update = () => {
     const dispatch = useAppDispatch();
     const router = useRouter();
 
-    const onUpdate= async (car: Car) => {
-        const {meta} = await dispatch(updateCar(car));
+    const car = useTypedSelector(state => selectCarById(state, String(router.query.id)));
+
+    const onUpdate = async (car: Car) => {
+        const { meta } = await dispatch(updateCar(car));
 
         if (meta.requestStatus === 'fulfilled') {
             router.push('/view');
         }
-    }
+    };
 
     return (
         <>
@@ -30,25 +28,10 @@ const Update = ({car}:UpdateProps) => {
                 <title>Редактирование автомобиля</title>
             </Head>
             <div className={cls.wrapper}>
-                <MainForm car={car} action={onUpdate} isUpdate/>
+                <MainForm car={car} action={onUpdate} isUpdate />
             </div>
         </>
     );
-}
-
-export const getServerSideProps: GetServerSideProps<UpdateProps> = async (context) => {
-    const {query} = context;
-    const {data} = await instance.get(`/${query.id}`);
-
-    if (!data) {
-        return {
-            notFound: true,
-        }
-    }
-
-    return {
-        props: {car: data}
-    }
-}
+};
 
 export default Update;

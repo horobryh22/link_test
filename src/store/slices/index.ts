@@ -1,1 +1,1 @@
-export {appReducer, appActions} from './app/appSlice';
+export { appReducer, appActions } from './app/appSlice';
