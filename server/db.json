@@ -2,28 +2,34 @@
   "cars": [
     {
       "id": "136",
-      "images": [],
-      "name": "Volvo XC70, 2007",
+      "name": "Volvo XC70, 2009",
+      "images": "отсутствуют",
+      "contacts": "seller@mail.ru",
       "description": "1973 года выпуска, в отличном состоянии. Пробег 200000 км.",
       "price": "1500000",
-      "contacts": "seller@mail.ru",
       "technical_characteristics": {
-        "car_id": "45",
+        "mileage": "220000",
         "brand": "Volvo",
-        "model": "XC70",
-        "productionYear": "2007",
         "body": "body",
-        "mileage": "200000"
+        "productionYear": "2010",
+        "model": "XC70",
+        "car_id": "173b16ae-3b4b-4619-9f5b-a6dc63a1c234"
       },
       "options": [
         {
-          "option_name": "Климат-контроль"
+          "aasasdasdasd-1212312": "Климат-контроль"
         },
         {
-          "option_name": "Кожаный руль"
+          "asdasdasd-1231231": "Кожаный руль"
         },
         {
-          "option_name": "Центральный замок"
+          "asdasdasd-123123saasd": "Центральный замок"
+        },
+        {
+          "85ae8127-055f-4e22-be7a-6eb5f77a2ddd": "Тонированные стекла"
+        },
+        {
+          "e2e43ce2-93c4-4cf9-a056-ec837445f845": "Мотор 2.3"
         }
       ]
     },
@@ -40,11 +46,14 @@
         "body": "C20",
         "productionYear": "1999",
         "model": "54",
-        "car_id": "7cad98c9-2ac4-4d2e-918b-dc6147b63aff"
+        "car_id": "16b45520-6f66-42b6-8e58-64e7a245a9f6"
       },
       "options": [
         {
           "option_name": "Кондиционер"
+        },
+        {
+          "c69a2cfe-5261-4170-9f2e-4845212288ff": "Акустическая система"
         }
       ]
     },

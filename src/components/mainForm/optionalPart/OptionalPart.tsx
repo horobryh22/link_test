@@ -1,6 +1,6 @@
 import {ReactElement} from 'react';
 import cls from './OptionalPart.module.scss';
-import {Button, Form} from 'react-bootstrap';
+import {Form} from 'react-bootstrap';
 import {Control, Controller, FieldErrors} from 'react-hook-form';
 import {FormElement, FormValues} from '../../../types';
 
@@ -18,7 +18,7 @@ export const OptionalPart = ({errors, control, options}: OptionalPartProps): Rea
             key={element.id}
             name={element.id}
             rules={{required: {value: true, message: 'Данное поле обязательно'}}}
-            defaultValue={''}
+            defaultValue={element.defaultValue || ''}
             control={control}
             render={({field}) => {
                 return (

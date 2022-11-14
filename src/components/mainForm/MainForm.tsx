@@ -6,32 +6,42 @@ import {Button, Form} from 'react-bootstrap';
 import {Car, FormElement, FormValues} from '../../types';
 import {useForm} from 'react-hook-form';
 import {useRouter} from 'next/router';
-import {useAppDispatch} from '../../hooks';
-import {createCar} from '../../store/middlewares';
 import {MainPart} from './mainPart/MainPart';
 import {TechnicalPart} from './technicalPart/TechnicalPart';
 import {OptionalPart} from './optionalPart/OptionalPart';
 
 interface MainFormProps {
     car?: Car;
+    isUpdate?: boolean;
+    action: (car: Car) => void;
 }
 
-export const MainForm = ({car}: MainFormProps): ReactElement => {
-    const dispatch = useAppDispatch();
+export const MainForm = ({car, isUpdate = false, action}: MainFormProps): ReactElement => {
     const router = useRouter();
 
     const {
+        id,
         name,
         description,
         contacts,
         price,
         images,
-        technical_characteristics
+        technical_characteristics,
+        options: existOptions
     } = car || {} as Car;
 
+    const mappedExistOptions = existOptions?.map((option) => {
+        const key = Object.keys(option).reduce(key => key);
+        return {
+            id: key,
+            label: 'Новая опция',
+            placeholder: 'Введите название опции',
+            defaultValue: option[key]
+        }
+    });
     const isFieldExtended = Boolean(technical_characteristics);
     const [extendedFields, setExtendedFields] = useState(isFieldExtended);
-    const [options, setOptions] = useState<Omit<FormElement, 'name'>[]>([]);
+    const [options, setOptions] = useState<Omit<FormElement, 'name'>[]>(mappedExistOptions || []);
 
     const {control, handleSubmit, formState: {errors}} = useForm<FormValues>({
         defaultValues: {
@@ -65,7 +75,7 @@ export const MainForm = ({car}: MainFormProps): ReactElement => {
         } = data;
 
         const car: Car = {
-            id: v4(),
+            id: isUpdate ? id : v4(),
             name: data.name,
             images: data.images,
             contacts: data.contacts,
@@ -79,14 +89,10 @@ export const MainForm = ({car}: MainFormProps): ReactElement => {
                 model: data.model,
                 car_id: v4()
             } : undefined,
-            options: Object.values(restOptions).map(option => ({option_name: option}))
+            options: Object.entries(restOptions).map(([el1, el2]) => ({[el1]: el2}))
         };
 
-        const {meta} = await dispatch(createCar(car));
-
-        if (meta.requestStatus === 'fulfilled') {
-            router.push('/view');
-        }
+        action(car);
     }
 
     const onExtend = () => {
@@ -140,7 +146,7 @@ export const MainForm = ({car}: MainFormProps): ReactElement => {
                     className={cls.btn}
                     variant="primary"
                 >
-                    Добавить
+                    {isUpdate ? 'Обновить' : 'Добавить'}
                 </Button>
                 <Button
                     variant="danger"

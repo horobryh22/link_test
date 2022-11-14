@@ -15,6 +15,7 @@ export interface FormElement {
     name: FormElementName,
     label: string,
     placeholder: string,
+    defaultValue?: string,
 }
 
 export type FormValues = Record<string, string> & {
