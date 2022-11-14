@@ -1,20 +1,23 @@
-import {ReactElement, useMemo, useState} from 'react';
+import {ReactElement, useState} from 'react';
 
 import {v4} from 'uuid';
 import cls from './MainForm.module.scss';
 import {Button, Form} from 'react-bootstrap';
 import {Car, FormElement, FormValues} from '../../types';
-import {Controller, useForm} from 'react-hook-form';
-import {MAIN_ELEMENTS, TECHNICAL_ELEMENTS} from '../../constant/form';
+import {useForm} from 'react-hook-form';
 import {useRouter} from 'next/router';
-import {instance} from '../../api';
+import {useAppDispatch} from '../../hooks';
+import {createCar} from '../../store/middlewares';
+import {MainPart} from './mainPart/MainPart';
+import {TechnicalPart} from './technicalPart/TechnicalPart';
+import {OptionalPart} from './optionalPart/OptionalPart';
 
 interface MainFormProps {
     car?: Car;
 }
 
 export const MainForm = ({car}: MainFormProps): ReactElement => {
-
+    const dispatch = useAppDispatch();
     const router = useRouter();
 
     const {
@@ -78,96 +81,13 @@ export const MainForm = ({car}: MainFormProps): ReactElement => {
             } : undefined,
             options: Object.values(restOptions).map(option => ({option_name: option}))
         };
-        await instance.post('', car);
-        router.push('/view');
+
+        const {meta} = await dispatch(createCar(car));
+
+        if (meta.requestStatus === 'fulfilled') {
+            router.push('/view');
+        }
     }
-
-    const mainElements = useMemo(() => {
-        return MAIN_ELEMENTS.map((element) => (
-            <Controller
-                key={element.id}
-                name={element.name}
-                control={control}
-                rules={{required: {value: true, message: 'Данное поле обязательно'}}}
-                render={({field}) => {
-                    return (
-                        <Form.Group className="mb-1">
-                            <Form.Label
-                                style={{fontSize: '14px'}}
-                            >
-                                {element.label}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={element.placeholder}
-                                {...field}
-                            />
-                            <span
-                                className={cls.error}
-                            >
-                                {errors[element.name]?.message}
-                            </span>
-                        </Form.Group>
-                    )
-                }}
-            />
-        ));
-    }, [control, errors]);
-
-    const technicalElements = useMemo(() => {
-        return TECHNICAL_ELEMENTS.map((element) => (
-            <Controller
-                key={element.id}
-                name={element.name}
-                control={control}
-                render={({field}) => {
-                    return (
-                        <Form.Group className="mb-1">
-                            <Form.Label
-                                style={{fontSize: '14px'}}
-                            >
-                                {element.label}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={element.placeholder}
-                                {...field}
-                            />
-                            <span
-                                className={cls.error}
-                            >
-                                {errors[element.name]?.message}
-                            </span>
-                        </Form.Group>
-                    )
-                }}
-            />
-        ));
-    }, [control, errors]);
-
-    const optionalElements = useMemo(() => {
-        return options.map((element) => (
-            <Controller
-                key={element.id}
-                name={element.id}
-                defaultValue={''}
-                control={control}
-                render={({field}) => {
-                    return (
-                        <Form.Group className="mb-1">
-                            <Form.Label
-                                style={{fontSize: '14px'}}
-                            >
-                                {element.label}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={element.placeholder}
-                                {...field}
-                            />
-                        </Form.Group>
-                    )
-                }}
-            />
-        ));
-    }, [control, options]);
 
     const onExtend = () => {
         setExtendedFields(prev => !prev);
@@ -189,32 +109,28 @@ export const MainForm = ({car}: MainFormProps): ReactElement => {
     return (
         <Form className={cls.mainForm} onSubmit={handleSubmit(onSubmit)}>
             <div className={cls.formBlockWrapper}>
-                <div className={cls.formBlock}>
-                    {mainElements}
-                    <Button
-                        className={cls.btn}
-                        variant={extendedFields ? 'danger' : 'primary'}
-                        onClick={onExtend}
-                    >
-                        {extendedFields ? `Убрать технические характеристики` : `Добавить технические характеристики`}
-                    </Button>
-                </div>
+                <MainPart
+                    control={control}
+                    errors={errors}
+                    extendedFields={extendedFields}
+                    onExtend={onExtend}
+                />
                 {
-                    extendedFields &&
-                    <div className={cls.formBlock}>
-                        {technicalElements}
-                        <Button
-                            className={cls.btn}
-                            variant="primary"
-                            onClick={onAddOption}
-                        >
-                            Добавить опцию
-                        </Button>
-                    </div>
+                    extendedFields
+                        ? <TechnicalPart
+                            errors={errors}
+                            control={control}
+                            onAddOption={onAddOption}
+                        />
+                        : null
                 }
                 {
-                    optionalElements.length
-                        ? <div className={cls.formBlock}>{optionalElements}</div>
+                    options.length
+                        ? <OptionalPart
+                            options={options}
+                            control={control}
+                            errors={errors}
+                        />
                         : null
                 }
             </div>

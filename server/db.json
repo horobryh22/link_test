@@ -47,6 +47,23 @@
           "option_name": "Кондиционер"
         }
       ]
+    },
+    {
+      "id": "4249f31a-da24-4826-ac06-6a0a3c49f54e",
+      "name": "zxczxc",
+      "images": "zxczxc",
+      "contacts": "zxczxc",
+      "description": "zxczxc",
+      "price": "zxczxc",
+      "technical_characteristics": {
+        "mileage": "zxczxczxc",
+        "brand": "zxczxczx",
+        "body": "zxczxc",
+        "productionYear": "zxczxc",
+        "model": "zxczxc",
+        "car_id": "280969cb-9ca4-49a1-ad30-30741c8c39f7"
+      },
+      "options": []
     }
   ]
 }

@@ -1,15 +1,16 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {instance} from '../../../api';
+import {Car} from '../../../types';
 
-export const deleteCar = createAsyncThunk<void,
-    string,
+export const createCar = createAsyncThunk<void,
+    Car,
     { rejectValue: string }>
-('app/deleteCar', async (carId, {rejectWithValue}) => {
+('app/createCar', async (car, {rejectWithValue}) => {
     try {
-        const {data} = await instance.delete(`/${carId}`);
+        const {data} = await instance.post('', car);
 
         if (!data) {
-            throw new Error('Произошла ошибка, данные не были удалены');
+            throw new Error('Произошла ошибка, данные не были добавлены');
         }
 
     } catch (e) {

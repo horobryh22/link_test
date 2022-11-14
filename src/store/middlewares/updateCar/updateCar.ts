@@ -1,10 +1,10 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {instance} from '../../../api';
 
-export const deleteCar = createAsyncThunk<void,
+export const updateCar = createAsyncThunk<void,
     string,
     { rejectValue: string }>
-('app/deleteCar', async (carId, {rejectWithValue}) => {
+('app/updateCar', async (carId, {rejectWithValue}) => {
     try {
         const {data} = await instance.delete(`/${carId}`);
 

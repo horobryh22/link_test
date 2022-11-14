@@ -1,0 +1,11 @@
+.formBlock {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+
+
+    .error {
+        font-size: 14px;
+        color: red;
+    }
+}
